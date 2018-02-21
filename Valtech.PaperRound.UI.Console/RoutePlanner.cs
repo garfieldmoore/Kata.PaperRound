@@ -25,6 +25,7 @@ namespace Valtech.PaperRound.Tests
 
         public IEnumerable<int> GetDeliveryByNorthSideThenSouthSide()
         {
+            
             ResetCrossings();
 
             var northSide = _townplanner.NorthSideHouses();

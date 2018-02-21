@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Valtech.PaperRound.Tests;
@@ -7,11 +8,11 @@ namespace Valtech.PaperRound.UI.Console
 {
     public class StreetSpecificationFileReader : IStreetSpecificationReader
     {
-        private string _fileStream;
+        private readonly string _filename;
 
-        public StreetSpecificationFileReader(string fileStream)
+        public StreetSpecificationFileReader(string filename)
         {
-            this._fileStream = fileStream;
+            this._filename = filename;
             
         }
 
@@ -20,7 +21,7 @@ namespace Valtech.PaperRound.UI.Console
             IEnumerable<int> houses = new List<int>();
             var numbers = string.Empty;
 
-            using (var reader = new StreamReader(_fileStream))
+            using (var reader = new StreamReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _filename)))
             {
                 numbers = reader.ReadToEnd();
             }
