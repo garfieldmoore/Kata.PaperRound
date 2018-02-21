@@ -1,7 +1,7 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Shouldly;
+using Valtech.PaperRound.UI.Console;
 
 namespace Valtech.PaperRound.Tests
 {

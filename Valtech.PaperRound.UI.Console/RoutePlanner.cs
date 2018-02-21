@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Valtech.PaperRound.Tests
+namespace Valtech.PaperRound.UI.Console
 {
     public class RoutePlanner
     {

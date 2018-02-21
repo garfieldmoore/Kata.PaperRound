@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 
-namespace Valtech.PaperRound.Tests
+namespace Valtech.PaperRound.UI.Console
 {
     public class TownPlanner
     {

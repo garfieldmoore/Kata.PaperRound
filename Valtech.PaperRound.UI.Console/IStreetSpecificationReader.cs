@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Valtech.PaperRound.Tests
+namespace Valtech.PaperRound.UI.Console
 {
     public interface IStreetSpecificationReader
     {

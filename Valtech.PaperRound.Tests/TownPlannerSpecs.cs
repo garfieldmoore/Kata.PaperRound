@@ -1,11 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
-using NSubstitute;
+﻿using NSubstitute;
 using NUnit.Framework;
 using Shouldly;
+using Valtech.PaperRound.UI.Console;
 
 namespace Valtech.PaperRound.Tests
 {

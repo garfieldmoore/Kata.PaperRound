@@ -1,6 +1,4 @@
-﻿using Valtech.PaperRound.Tests;
-
-namespace Valtech.PaperRound.UI.Console
+﻿namespace Valtech.PaperRound.UI.Console
 {
     class Program
     {
