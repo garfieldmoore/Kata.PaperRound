@@ -2,8 +2,6 @@
 {
     class Program
     {
-        private static TownPlanner _townplanner;
-
         static void Main(string[] args)
         {
             DisplayTitle();
@@ -17,10 +15,10 @@
 
             IStreetSpecificationReader fileReader = new StreetSpecificationFileReader(args[0]);
 
-            _townplanner = TownPlanner.Create(fileReader);
-            var routeplanner = RoutePlanner.Create(_townplanner);
+            var townplanner = TownPlanner.Create(fileReader);
+            var routeplanner = RoutePlanner.Create(townplanner);
 
-            DisplayTownPlanningReport(_townplanner);
+            DisplayTownPlanningReport(townplanner);
 
             DisplayApproachOneReport(routeplanner);
             DisplayApproachTwoReport(routeplanner);
@@ -77,10 +75,10 @@
                 System.Console.WriteLine("The report is invalid");
             }
 
-            System.Console.WriteLine("Number of houses in street: {0}", _townplanner.NumberOfHousesInStreet());
+            System.Console.WriteLine("Number of houses in street: {0}", townplanner.NumberOfHousesInStreet());
 
-            System.Console.WriteLine("Number of houses on North side: {0}", _townplanner.NumberOfHousesOnNorthSide());
-            System.Console.WriteLine("Number of houses on South side: {0}", _townplanner.NumberOfHousesOnSouthSide());
+            System.Console.WriteLine("Number of houses on North side: {0}", townplanner.NumberOfHousesOnNorthSide());
+            System.Console.WriteLine("Number of houses on South side: {0}", townplanner.NumberOfHousesOnSouthSide());
 
         }
 
