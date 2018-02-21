@@ -5,17 +5,17 @@ namespace Valtech.PaperRound.UI.Console
 {
     public class RoutePlanner
     {
-        private TownPlanner _townplanner;
+        private readonly ITownPlanner _townplanner;
         private int _crossings;
 
-        public RoutePlanner(TownPlanner townplanner)
+        public RoutePlanner(ITownPlanner townplanner)
         {
             this._townplanner = townplanner;
         }
 
-        public static RoutePlanner Create(TownPlanner create)
+        public static RoutePlanner Create(ITownPlanner townplanner)
         {
-            return new RoutePlanner(create);
+            return new RoutePlanner(townplanner);
         }
 
         public int TotalRoadCrossing()
@@ -25,14 +25,13 @@ namespace Valtech.PaperRound.UI.Console
 
         public IEnumerable<int> GetDeliveryByNorthSideThenSouthSide()
         {
-            
             ResetCrossings();
 
             var northSide = _townplanner.NorthSideHouses();
             UpdateCrossing();
 
             var southside = _townplanner.SouthSideHouses().Reverse();
-            IEnumerable<int> deliveryOrder = northSide.Concat(southside);
+            var deliveryOrder = northSide.Concat(southside);
 
             return deliveryOrder;
         }
@@ -47,7 +46,7 @@ namespace Valtech.PaperRound.UI.Console
             ResetCrossings();
             var houses = _townplanner.GetHousesWestToEast();
             var deliveryOrder = new List<int>();
-            var currentSideOfStreet = StreetSide.North;
+            var currentSideOfStreet = StreetSide.North;  
 
             while (houses.Count > 0)
             {
@@ -61,7 +60,6 @@ namespace Valtech.PaperRound.UI.Console
                     }
 
                     deliveryOrder.Add(house.Number);
-
                 }
             }
 

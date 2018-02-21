@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Valtech.PaperRound.UI.Console
 {
-    public class TownPlanner
+    public class TownPlanner : ITownPlanner
     {
         private readonly IStreetSpecificationReader _reader;
         private bool _isloaded;

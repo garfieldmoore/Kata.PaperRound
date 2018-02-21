@@ -18,7 +18,7 @@
             IStreetSpecificationReader fileReader = new StreetSpecificationFileReader(args[0]);
 
             _townplanner = TownPlanner.Create(fileReader);
-            var routeplanner = new RoutePlanner(_townplanner);
+            var routeplanner = RoutePlanner.Create(_townplanner);
 
             DisplayTownPlanningReport(_townplanner);
 
