@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Valtech.PaperRound.UI.Console")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Valtech PaperRound Console")]
+[assembly: AssemblyDescription("Provides analysis on the provided file specification and delivery order")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Valtech.PaperRound.UI.Console")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2018")]
+[assembly: AssemblyCompany("Valtech Ltd.")]
+[assembly: AssemblyProduct("Valtech PaperRound Command Line Utility")]
+[assembly: AssemblyCopyright("Copyright © G. Moore 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

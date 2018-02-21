@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Valtech.PaperRound.Tests;
+﻿using Valtech.PaperRound.Tests;
 
 namespace Valtech.PaperRound.UI.Console
 {
@@ -13,12 +8,20 @@ namespace Valtech.PaperRound.UI.Console
 
         static void Main(string[] args)
         {
-            IStreetSpecificationReader fileReader = new StreetSpecificationFileReader("street1.txt");
+            DisplayTitle();
+
+            if (args.Length != 1)
+            {
+                DisplayUsage();
+                WaitForKeyPress();
+                return;
+            }
+
+            IStreetSpecificationReader fileReader = new StreetSpecificationFileReader(args[0]);
 
             _townplanner = TownPlanner.Create(fileReader);
             var routeplanner = new RoutePlanner(_townplanner);
 
-            DisplayTitle();
             DisplayTownPlanningReport(_townplanner);
 
             DisplayApproachOneReport(routeplanner);
@@ -26,6 +29,13 @@ namespace Valtech.PaperRound.UI.Console
 
             WaitForKeyPress();
 
+        }
+
+        private static void DisplayUsage()
+        {
+            System.Console.WriteLine();
+            System.Console.WriteLine("Usage: supply name of street file specification residing in the application directory");
+            System.Console.WriteLine();
         }
 
         private static void WaitForKeyPress()
@@ -45,9 +55,10 @@ namespace Valtech.PaperRound.UI.Console
 
         private static void DisplayApproachOneReport(RoutePlanner routeplanner)
         {
-               
-            System.Console.WriteLine();   
-            System.Console.WriteLine("Story 2");
+
+            System.Console.WriteLine();
+            System.Console.WriteLine("Newspaper delivery report (Story 2)");
+            System.Console.WriteLine("-----------------------------------");
             System.Console.WriteLine();
 
             System.Console.WriteLine("Appraoch one delivery order: {0}", string.Join(", ", routeplanner.GetDeliveryByNorthSideThenSouthSide()));
@@ -77,9 +88,14 @@ namespace Valtech.PaperRound.UI.Console
 
         private static void DisplayTitle()
         {
-            System.Console.WriteLine("PaperRound V2");
-            System.Console.WriteLine();
+            System.Console.WriteLine("{0} Version {1}", AssemblyInfoHelper.Product, AssemblyInfoHelper.Version);
+            System.Console.WriteLine(AssemblyInfoHelper.Description);
+            System.Console.WriteLine(AssemblyInfoHelper.Copyright);
 
+            System.Console.WriteLine();
         }
     }
+
+
 }
+
