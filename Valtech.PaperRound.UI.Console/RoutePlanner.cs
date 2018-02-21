@@ -29,8 +29,8 @@ namespace Valtech.PaperRound.UI.Console
 
             var northSide = _townplanner.NorthSideHouses();
             UpdateCrossing();
-
             var southside = _townplanner.SouthSideHouses().Reverse();
+
             var deliveryOrder = northSide.Concat(southside);
 
             return deliveryOrder;

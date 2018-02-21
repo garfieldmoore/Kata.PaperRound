@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using System.Linq;
+using NSubstitute;
 using NUnit.Framework;
 using Shouldly;
 using Valtech.PaperRound.UI.Console;
@@ -23,7 +24,7 @@ namespace Valtech.PaperRound.Tests
         private static void GivenAValidStreetSpecification()
         {
             _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
-            _streetSpecificationReader.LoadFile().Returns(new[] {1, 2, 3});
+            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3 });
         }
 
         private static void GivenATownPlanner()
@@ -57,7 +58,7 @@ namespace Valtech.PaperRound.Tests
         public void ensure_number_of_houses_is_3()
         {
             _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
-            _streetSpecificationReader.LoadFile().Returns(new [] {1,2,3});
+            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3 });
 
             GivenATownPlanner();
 
@@ -79,7 +80,7 @@ namespace Valtech.PaperRound.Tests
         public void ensure_houses_on_north_side_is_3()
         {
             _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
-            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3,5 });
+            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3, 5 });
 
             GivenATownPlanner();
 
@@ -102,17 +103,40 @@ namespace Valtech.PaperRound.Tests
         public void ensure_houses_on_south_side_is_2()
         {
             _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
-            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3,4, 5 });
+            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3, 4, 5 });
 
             GivenATownPlanner();
 
             _townPlanner.NumberOfHousesOnSouthSide().ShouldBe(2);
 
         }
+
+        [Test]
+        public void ensure_south_side_houses_loads_street_specification()
+        {
+            _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
+            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3, 4 });
+
+            GivenATownPlanner();
+
+            _townPlanner.SouthSideHouses().Count().ShouldBe(2);
+        }
+
+        [Test]
+        public void ensure_converts_to_houses_loads_street_specification()
+        {
+            _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
+            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3, 4 });
+
+            GivenATownPlanner();
+
+            _townPlanner.GetHousesWestToEast().Count().ShouldBe(4);
+        }
+
         private static void GivenAInvalidFile()
         {
             _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
-            _streetSpecificationReader.LoadFile().Returns(new[] {2});
+            _streetSpecificationReader.LoadFile().Returns(new[] { 2 });
         }
     }
 }

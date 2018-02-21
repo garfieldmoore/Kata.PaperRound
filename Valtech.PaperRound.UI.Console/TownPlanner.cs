@@ -71,18 +71,22 @@ namespace Valtech.PaperRound.UI.Console
         public IEnumerable<int> NorthSideHouses()
         {
             LoadFile();
+
             return _houses.Where(IsNorthSide).Select(x => x);
         }
 
         public IEnumerable<int> SouthSideHouses()
         {
+            LoadFile();
+
             return _houses.Where(x => !IsNorthSide(x)).Select(x => x);
 
         }
 
         public Queue<House> GetHousesWestToEast()
         {
-            LoadFile();
+           LoadFile();
+
             return ConvertToHouses();
         }
 
@@ -101,16 +105,5 @@ namespace Valtech.PaperRound.UI.Console
         {
             return x % 2 != 0;
         }
-    }
-
-    public class House
-    {
-        public int Number;
-        public StreetSide SideOfStreet;
-    }
-
-    public enum StreetSide
-    {
-        North, South
     }
 }
