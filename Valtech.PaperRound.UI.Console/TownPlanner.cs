@@ -23,7 +23,7 @@ namespace Valtech.PaperRound.UI.Console
         {
             LoadFile();
 
-            if (_houses.ToArray()[0] == 1)
+            if (_houses.First() == 1)
             {
                 return true;
             }
@@ -58,25 +58,25 @@ namespace Valtech.PaperRound.UI.Console
         {
             LoadFile();
 
-            return _houses.Count(x => x % 2 != 0);
+            return _houses.Count(IsNorthSide);
         }
 
         public int NumberOfHousesOnSouthSide()
         {
             LoadFile();
 
-            return _houses.Count(x => x % 2 == 0);
+            return _houses.Count(x => !IsNorthSide(x));
         }
 
         public IEnumerable<int> NorthSideHouses()
         {
             LoadFile();
-            return _houses.Where(x => x % 2 != 0).Select(x => x);
+            return _houses.Where(IsNorthSide).Select(x => x);
         }
 
         public IEnumerable<int> SouthSideHouses()
         {
-            return _houses.Where(x => x % 2 == 0).Select(x => x);
+            return _houses.Where(x => !IsNorthSide(x)).Select(x => x);
 
         }
 
