@@ -9,7 +9,7 @@ namespace Valtech.PaperRound.Tests
     [TestFixture]
     public class TownPlannerSpecs
     {
-        private static TownPlanner _townPlanner;
+        private static ITownPlanner _townPlanner;
         private static IStreetSpecificationReader _streetSpecificationReader;
 
         [Test]
@@ -30,12 +30,13 @@ namespace Valtech.PaperRound.Tests
         private static void GivenATownPlanner()
         {
             _townPlanner = TownPlanner.Create(_streetSpecificationReader);
+            _townPlanner.LoadStreetSpecification();
         }
 
         [Test]
         public void ensure_file_is_invalid()
         {
-            GivenAInvalidFile();
+            GivenAInvalidFileStartsFrom2();
 
             GivenATownPlanner();
 
@@ -133,7 +134,34 @@ namespace Valtech.PaperRound.Tests
             _townPlanner.GetHousesWestToEast().Count().ShouldBe(4);
         }
 
-        private static void GivenAInvalidFile()
+        [Test]
+        public void ensure_duplciates_invalidate_specification()
+        {
+            _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
+            _streetSpecificationReader.LoadFile().Returns(new[] { 1, 2, 3, 4, 4 });
+
+            GivenATownPlanner();
+
+            _townPlanner.IsValid().ShouldBeFalse();
+
+        }
+
+        [Test]
+        public void ensure_house_count_is_zero_when_street_specification_not_loaded()
+        {
+            _townPlanner = TownPlanner.Create(_streetSpecificationReader);
+
+            _townPlanner.NorthSideHouses().Count().ShouldBe(0);
+            _townPlanner.IsValid().ShouldBeFalse();
+            _townPlanner.GetHousesWestToEast().Count.ShouldBe(0);
+            _townPlanner.SouthSideHouses().Count().ShouldBe(0);
+            _townPlanner.NumberOfHousesInStreet().ShouldBe(0);
+            _townPlanner.NumberOfHousesOnNorthSide().ShouldBe(0);
+            _townPlanner.NumberOfHousesOnSouthSide().ShouldBe(0);
+        }
+
+
+        private static void GivenAInvalidFileStartsFrom2()
         {
             _streetSpecificationReader = Substitute.For<IStreetSpecificationReader>();
             _streetSpecificationReader.LoadFile().Returns(new[] { 2 });

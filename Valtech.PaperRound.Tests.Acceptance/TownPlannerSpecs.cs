@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using NUnit.Framework.Internal;
+﻿using NUnit.Framework;
 using Shouldly;
 using Valtech.PaperRound.UI.Console;
 
@@ -14,7 +7,7 @@ namespace Valtech.PaperRound.Tests.Acceptance
     [TestFixture]
     public class TownPlannerSpecs
     {
-        private TownPlanner _townplanner;
+        private ITownPlanner _townplanner;
 
         [Test]
         public void Given_a_valid_file_when_checking_file_then_it_should_be_valid()
@@ -27,6 +20,7 @@ namespace Valtech.PaperRound.Tests.Acceptance
         private void GivenADefaultTownPlanner()
         {
             _townplanner = TownPlanner.Create(new StreetSpecificationFileReader("street1.txt"));
+            _townplanner.LoadStreetSpecification();
         }
 
         [Test]
@@ -34,6 +28,7 @@ namespace Valtech.PaperRound.Tests.Acceptance
         {
             var townplanner =
                 TownPlanner.Create(new StreetSpecificationFileReader("invalid_starts_at_2.txt"));
+            townplanner.LoadStreetSpecification();
 
             townplanner.IsValid().ShouldBeFalse();
 

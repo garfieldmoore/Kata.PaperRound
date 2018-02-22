@@ -15,7 +15,8 @@
 
             IStreetSpecificationReader fileReader = new StreetSpecificationFileReader(args[0]);
 
-            var townplanner = TownPlanner.Create(fileReader);
+            ITownPlanner townplanner = TownPlanner.Create(fileReader);
+            townplanner.LoadStreetSpecification();
             var routeplanner = RoutePlanner.Create(townplanner);
 
             DisplayTownPlanningReport(townplanner);
@@ -61,7 +62,7 @@
             System.Console.WriteLine("Appraoch one total road crossings: {0}", routeplanner.TotalRoadCrossing());
         }
 
-        private static void DisplayTownPlanningReport(TownPlanner townplanner)
+        private static void DisplayTownPlanningReport(ITownPlanner townplanner)
         {
 
             System.Console.WriteLine("Town Planning report (Story 1)");

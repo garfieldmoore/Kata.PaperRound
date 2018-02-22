@@ -11,5 +11,6 @@ namespace Valtech.PaperRound.UI.Console
         IEnumerable<int> NorthSideHouses();
         IEnumerable<int> SouthSideHouses();
         Queue<House> GetHousesWestToEast();
+        void LoadStreetSpecification();
     }
 }

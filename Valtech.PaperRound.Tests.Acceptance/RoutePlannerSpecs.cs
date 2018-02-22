@@ -40,6 +40,7 @@ namespace Valtech.PaperRound.Tests.Acceptance
         private void GivenADefaultTownPlanner()
         {
             var townPlanner = TownPlanner.Create(new StreetSpecificationFileReader("street1.txt"));
+            townPlanner.LoadStreetSpecification();
             _routePlanner = RoutePlanner.Create(townPlanner);
         }
     }

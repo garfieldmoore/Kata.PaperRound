@@ -6,8 +6,7 @@ namespace Valtech.PaperRound.UI.Console
     public class TownPlanner : ITownPlanner
     {
         private readonly IStreetSpecificationReader _reader;
-        private bool _isloaded;
-        private IEnumerable<int> _houses;
+        private IEnumerable<int> _houses = new int[0];
 
         private TownPlanner(IStreetSpecificationReader reader)
         {
@@ -21,63 +20,51 @@ namespace Valtech.PaperRound.UI.Console
 
         public bool IsValid()
         {
-            LoadFile();
+            var isvalid = _houses.Any() && _houses.First() == 1 && !HasDuplicates();
 
-            if (_houses.First() == 1)
-            {
-                return true;
-            }
-
-            return false;
+            return isvalid;
         }
 
-        private void LoadFile()
+        private bool HasDuplicates()
         {
-            if (IsLoaded())
-            {
-                return;
-            }
+            var query = _houses.GroupBy(x => x)
+                .Where(g => g.Count() > 1);
 
+            return query.Count() != 0;
+        }
+
+        public void LoadStreetSpecification()
+        {
             _houses = _reader.LoadFile();
-            _isloaded = true;
-        }
 
-        private bool IsLoaded()
-        {
-            return _isloaded;
         }
 
         public int NumberOfHousesInStreet()
         {
-            LoadFile();
 
             return _houses.Count();
         }
 
         public int NumberOfHousesOnNorthSide()
         {
-            LoadFile();
 
             return _houses.Count(IsNorthSide);
         }
 
         public int NumberOfHousesOnSouthSide()
         {
-            LoadFile();
 
             return _houses.Count(x => !IsNorthSide(x));
         }
 
         public IEnumerable<int> NorthSideHouses()
         {
-            LoadFile();
 
             return _houses.Where(IsNorthSide).Select(x => x);
         }
 
         public IEnumerable<int> SouthSideHouses()
         {
-            LoadFile();
 
             return _houses.Where(x => !IsNorthSide(x)).Select(x => x);
 
@@ -85,7 +72,6 @@ namespace Valtech.PaperRound.UI.Console
 
         public Queue<House> GetHousesWestToEast()
         {
-           LoadFile();
 
             return ConvertToHouses();
         }
@@ -101,7 +87,7 @@ namespace Valtech.PaperRound.UI.Console
             return queue;
         }
 
-        private bool IsNorthSide(int x)
+        private static bool IsNorthSide(int x)
         {
             return x % 2 != 0;
         }
